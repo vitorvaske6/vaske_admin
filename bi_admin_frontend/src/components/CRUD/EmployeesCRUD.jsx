@@ -48,7 +48,7 @@ const EmployeesCRUD = (props) => {
                 `${process.env.REACT_APP_SERVER_ENDPOINT}/api/sessions`,
                 values,
                 { withCredentials: true }
-            ).then(res => [console.log(res)])
+            ).then(res => [])//console.log(res)])
 
         } catch (e) {
             setLoginError(e.message);
@@ -60,7 +60,7 @@ const EmployeesCRUD = (props) => {
     }
 
     const handleDdInput = (field, data, multi, valueField) => {
-        console.log('field, data, multi, valueField',field, data, multi, valueField)
+        //console.log('field, data, multi, valueField',field, data, multi, valueField)
         if (multi) {
             setProfileInput(prevInput => ({ ...prevInput, [`${field}`]: { ...data }[valueField] }))
         }
@@ -82,7 +82,7 @@ const EmployeesCRUD = (props) => {
         return <Loading />
     }
 
-    console.log('profileInput', { profileInput, ddProfileTypesParams })
+    //console.log('profileInput', { profileInput, ddProfileTypesParams })
 
 
     return (

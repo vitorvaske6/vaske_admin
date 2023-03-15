@@ -21,7 +21,7 @@ const NonCollapseList = (props) => {
     }
 
     const routeChange = (page, groupName, _id) => {
-        console.log(_id, page)
+        //console.log(_id, page)
         
         verifyPermissions(false, _id, page)
 

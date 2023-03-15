@@ -74,6 +74,7 @@ export const ContextProvider = ({ children, env }) => {
     const [profileInfo, setProfileInfo] = useState({ profileInfoSchema });
     const [profileCompanyInfo, setProfileCompanyInfo] = useState({ profileCompanyInfoSchema })
     const [employeesData, setEmployeesData] = useState()
+    const [reportsData, setReportsData] = useState()
     const [companiesData, setCompaniesData] = useState()
     const [employeesLoaded, setEmployeesLoaded] = useState(false)
     const [isNavmenu, setIsNavmenu] = useState(true);
@@ -123,6 +124,7 @@ export const ContextProvider = ({ children, env }) => {
         setProfileInfo({ profileInfoSchema });
         setProfileCompanyInfo({ profileCompanyInfoSchema })
         setEmployeesData()
+        setReportsData()
         setCompaniesData()
         setEmployeesLoaded(false)
         setIsNavmenu(true);
@@ -156,10 +158,10 @@ export const ContextProvider = ({ children, env }) => {
                 `${process.env.REACT_APP_SERVER_ENDPOINT}/api/appUser`, {
                 withCredentials: true,
             }
-            ).then(res => [console.log(res.data), setAppData(res.data.appInfo), setUserReports(res.data.userAppInfo.reports), handleNavInfo(res.data.userAppInfo.navigation, res.data.userAppInfo.reports, res.data.appInfo.navigation), handleDropdowns(res.data.appInfo)])
+            ).then(res => [setAppData(res.data.appInfo), setUserReports(res.data.userAppInfo.reports), handleNavInfo(res.data.userAppInfo.navigation, res.data.userAppInfo.reports, res.data.appInfo.navigation), handleDropdowns(res.data.appInfo)])
             return true
         } catch (e) {
-            console.log(e)
+            //console.log(e)
             return false
         }
     }
@@ -285,7 +287,7 @@ export const ContextProvider = ({ children, env }) => {
             ).then(res => [setIsLoggedIn(true), handleUserLoginInfo(res.data)])
             return true
         } catch (e) {
-            console.log(e)
+            //console.log(e)
             setIsLoggedIn(false)
             return false
         }
@@ -525,7 +527,7 @@ export const ContextProvider = ({ children, env }) => {
                 handleProfileDetailsObject, handleUserDetailsObject, handleCompanyDetailsObject,
                 ddProfileFunctionsParams, ddProfilesParams, ddProfileTypesParams, ddCompanyTypesParams, ddCompanyGroupsParams, ddCompanyDepartmentsParams, ddProfileGroupsParams,
                 employeesLoaded, setEmployeesLoaded,
-                employeesData, setEmployeesData, companiesData, setCompaniesData,
+                employeesData, setEmployeesData, reportsData, setReportsData, companiesData, setCompaniesData,
                 handleUserLoginInfo, userLoginInfo, profileInfo, profileCompanyInfo,
                 setCookie, cookies,
                 isNavmenu, setIsNavmenu,

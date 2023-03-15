@@ -51,6 +51,9 @@ module.exports = {
             backgroundImage: {
                 'hero-pattern': "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
             },
+            boxShadow: {
+                'plusIcon': '0 0px 0px 2px rgba(0, 0, 0, 0.1)',
+            }
         },
     },
     plugins: [],

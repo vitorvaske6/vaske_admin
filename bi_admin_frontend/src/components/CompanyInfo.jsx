@@ -86,7 +86,7 @@ const CompanyInfo = (props) => {
     }
 
     async function onSubmit(values) {
-        console.log("on submit values ---- ", values)
+        //console.log("on submit values ---- ", values)
         try {
             if (buttonEditMode === 'Cadastrar') {
                 await axios.post(

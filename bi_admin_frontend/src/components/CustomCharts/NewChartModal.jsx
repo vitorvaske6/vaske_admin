@@ -35,7 +35,7 @@ const EditLabel = ({ label, handleLabelsNewName }) => {
     const [labelInput, setLabelInput] = useState({ name: '' })
 
     const handleInput = (key, data) => {
-        console.log('change ', key, data)
+        //console.log('change ', key, data)
         setLabelInput(prevInput => ({ ...prevInput, name: `${data}` }))
         //handleLabelsNewName(`${key}`, `${data}`)
     }
@@ -80,14 +80,14 @@ const PieBuilder = ({ data, handleNewChart }) => {
 
 
     const handleLabelsNewColor = (key, color) => {
-        console.log(key, color)
+        //console.log(key, color)
         let index = 0
         const item = labelsColor.find(object => {
             index += 1
             return object.key === key;
         });
 
-        console.log(item)
+        //console.log(item)
 
         let updatedLabels = labelsColor
 
@@ -98,7 +98,7 @@ const PieBuilder = ({ data, handleNewChart }) => {
         }
 
 
-        console.log("updatedLabels", updatedLabels, index, labelsColor[index])
+        //console.log("updatedLabels", updatedLabels, index, labelsColor[index])
 
         setLabelsColor(updatedLabels)
 
@@ -124,17 +124,17 @@ const PieBuilder = ({ data, handleNewChart }) => {
         // setLabelsColor(updatedLabels)
     }
 
-    console.log(labelsColor)
+    //console.log(labelsColor)
 
     const handleMouseOverPicker = (key, color) => {
-        console.log(key, color)
+        //console.log(key, color)
         setMouseOver(key)
         setIsMouseOver(true)
         setMouseOverColor(color)
     }
 
     const handleMouseOutPicker = () => {
-        console.log()
+        //console.log()
         setMouseOver('')
         setIsMouseOver(false)
         setMouseOverColor('')
@@ -166,7 +166,7 @@ const PieBuilder = ({ data, handleNewChart }) => {
         _data.labels = dataLabels
 
 
-        console.log("_data, labelsColor", data, labelsColor, _data)
+        //console.log("_data, labelsColor", data, labelsColor, _data)
         let borderOptions = { border: '2px solid #888', borderRadius: '25px' }
         let background = '#EEE'
         let size = { width: '360px', height: '360px' }
@@ -234,7 +234,7 @@ const NewChartModal = (props) => {
                 `${process.env.REACT_APP_SERVER_ENDPOINT}/api/sessions`,
                 values,
                 { withCredentials: true }
-            ).then(res => [console.log(res)])
+            ).then(res => [])//console.log(res)])
 
         } catch (e) {
             setLoginError(e.message);
@@ -246,7 +246,7 @@ const NewChartModal = (props) => {
     }
 
     const handleDdInput = (field, data, multi, valueField) => {
-        console.log('field, data, multi, valueField', field, data, multi, valueField)
+        //console.log('field, data, multi, valueField', field, data, multi, valueField)
         if (multi) {
             setProfileInput(prevInput => ({ ...prevInput, [`${field}`]: { ...data }[valueField] }))
         }
@@ -278,7 +278,7 @@ const NewChartModal = (props) => {
         }
     }
 
-    console.log('profileInput', { profileInput, ddProfileTypesParams })
+    //console.log('profileInput', { profileInput, ddProfileTypesParams })
     const dataChart = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [

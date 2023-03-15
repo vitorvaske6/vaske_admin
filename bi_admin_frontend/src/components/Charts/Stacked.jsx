@@ -5,7 +5,7 @@ import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '.
 
 const Stacked = ({ width, height, data}) => {
 
-  console.log()
+  //console.log()
 
   return (
     <ChartComponent 

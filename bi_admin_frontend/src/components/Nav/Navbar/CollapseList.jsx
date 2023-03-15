@@ -18,7 +18,7 @@ const CollapseListV2 = (props) => {
     }
 
     const routeChange = (page, groupName, _id) => {
-        console.log(_id)
+        //console.log(_id)
         if (_id !== undefined) {
             navigate(`${page}/${groupName}/${_id}`);
         }

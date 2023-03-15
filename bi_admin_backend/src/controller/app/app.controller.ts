@@ -118,6 +118,7 @@ export async function getAppInfoForUserHandler(
             const reportsInfo = await findReport(profileReportsFind)
 
             if(!reportsInfo){
+                console.log(profileReportsFind)
                 return res.status(404).send("Report not found")
             }
 

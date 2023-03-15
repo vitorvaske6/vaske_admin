@@ -37,7 +37,7 @@ const EmployeeInfo = (props) => {
     const [isEditMode, setIsEditMode] = useState(false)
     const [buttonEditMode, setButtonEditMode] = useState('Alterar')
     const [title, setTitle] = useState(`Cadastrar Funcionário`)
-    console.log("employeeInput-----------", employeeInput)
+    //console.log("employeeInput-----------", employeeInput)
     useEffect(() => {
         handleLoad();
         handleDetailedColumnsMenus();
@@ -66,7 +66,7 @@ const EmployeeInfo = (props) => {
         delete finalInput.updatedAt
         delete finalInput.createdAt
 
-        console.log("------------" , finalInput, employeeInput)
+        //console.log("------------" , finalInput, employeeInput)
         // finalInput.companyDepartments = [{}]
 
         onSubmit(finalInput);
@@ -174,7 +174,7 @@ const EmployeeInfo = (props) => {
         setSelectedMenu(selected)
     }
 
-    console.log("ddProfileGroupsParams---", ddProfileGroupsParams)
+    //console.log("ddProfileGroupsParams---", ddProfileGroupsParams)
 
     return (
         <>

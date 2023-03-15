@@ -8,7 +8,6 @@ import axios from 'axios';
 import env from 'react-dotenv';
 import { useStateContext } from '../contexts/ContextProvider';
 import { format } from 'date-fns'
-import Icon from '@material-ui/icons/Apps';
 import LongMenu from '../components/material-ui/LongMenu'
 import { FiSearch } from 'react-icons/fi';
 import DataTable from 'react-data-table-component';

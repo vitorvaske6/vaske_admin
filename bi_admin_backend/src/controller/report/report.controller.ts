@@ -9,7 +9,7 @@ export async function createReportHandler(req: Request<{}, {}, CreateReportInput
         return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
     }
 
-    const body = req.body;
+    const body = req.body; 
 
     if(!user_Id){
         return res.status(403).send("Necessário um usuário para criar um report");
@@ -22,21 +22,38 @@ export async function createReportHandler(req: Request<{}, {}, CreateReportInput
 }
 
 export async function updateReportHandler(req: Request<UpdateReportInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const report_Id = req.params._id;
     const update = req.body;
-    const report = await findReport({ report_Id })
+
+    // if(update._id){
+    //     delete update._id
+    // }
+
+    const report = await findReport({ _id: report_Id })
 
     if (!report) {
         return res.sendStatus(404);
     }
 
-    const updatedReport = await findAndUpdateReport({ report_Id }, update, { new: true });
+    const updatedReport = await findAndUpdateReport({ _id: report_Id }, update, { new: false });
 
     return res.send(updatedReport);
 

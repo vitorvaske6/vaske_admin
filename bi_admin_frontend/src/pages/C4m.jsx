@@ -53,7 +53,7 @@ const C4m = () => {
         var concat = c4mData.concat(data.filter((item) => c4mData.indexOf(item.imei) < 0))
         setC4mData(concat)
         
-        console.log("c4mData.length, total", c4mData.length, total)
+        //console.log("c4mData.length, total", c4mData.length, total)
         // if(c4mData.length < total){
         //     loadC4mHandler(c4mData.length)
         // }
@@ -89,7 +89,7 @@ const C4m = () => {
                     }
                 })
             }
-            console.log(`while (${skip} <= ${total} && ${status} === 200)`)
+            //console.log(`while (${skip} <= ${total} && ${status} === 200)`)
 
         } catch (e) {
             //console.log(e)

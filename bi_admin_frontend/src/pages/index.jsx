@@ -1,8 +1,9 @@
 export { default as Ecommerce } from './Ecommerce';
 export { default as Kanban } from './Kanban';
-export { default as Reports } from './Reports';
+export { default as ReportsEmbedded } from './ReportsEmbedded';
 export { default as Orders } from './Orders';
 export { default as Employees } from './Employees';
+export { default as Reports } from './Reports';
 export { default as Editor } from './Editor';
 export { default as Customers } from './Customers';
 export { default as ColorPicker } from './ColorPicker';
@@ -18,7 +19,9 @@ export { default as Stacked } from './Charts/Stacked';
 export { default as Login } from './auth/Login';
 export { default as Register } from './auth/Register';
 export { default as Erro } from './Erro';
-export { default as GoogleAuth } from '../utils/getGoogleUrl'
-export { default as CustomReports } from './CustomReports'
-export { default as Companies } from './Companies'
-export { default as NoAccess } from './NoAccess'
+export { default as GoogleAuth } from '../utils/getGoogleUrl';
+export { default as CustomReports } from './CustomReports';
+export { default as Companies } from './Companies';
+export { default as NoAccess } from './NoAccess';
+export { default as ExplorePage } from './ExplorePage';
+export { default as DashboardPage } from './DashboardPage';

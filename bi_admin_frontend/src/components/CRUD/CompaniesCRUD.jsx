@@ -52,7 +52,7 @@ const CompaniesCRUD = (props) => {
     }
 
     const handleDdInput = (field, data, multi, valueField) => {
-        console.log('field, data, multi, valueField',field, data, multi, valueField)
+        //console.log('field, data, multi, valueField',field, data, multi, valueField)
         if (multi) {
             setCompanyInput(prevInput => ({ ...prevInput, [`${field}`]: { ...data }[valueField] }))
         }
@@ -74,7 +74,7 @@ const CompaniesCRUD = (props) => {
         return <Loading />
     }
 
-    console.log('companyInput', { companyInput, ddProfilesParams, ddCompanyTypesParams, ddCompanyGroupsParams, ddCompanyDepartmentsParams })
+    //console.log('companyInput', { companyInput, ddProfilesParams, ddCompanyTypesParams, ddCompanyGroupsParams, ddCompanyDepartmentsParams })
 
 
     return (
