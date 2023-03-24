@@ -11,7 +11,6 @@ import ChartRenderer from "../ChartRenderer";
 import stateChangeHeuristics from "./stateChangeHeuristics.js";
 
 const ControlsRow = styled(Row)`
-  background: #ffffff;
   margin-bottom: 12px;
   padding: 18px 28px 10px 28px;
 `
@@ -77,7 +76,7 @@ const ExploreQueryBuilder = ({
       validatedQuery,
       cubejsApi
     }) => [
-      <ControlsRow type="flex" justify="space-around" align="top" key="1">
+      <ControlsRow  className="bg-gray-100 dark:bg-main-dark-bg" type="flex" justify="space-around" align="top" key="1">
         <Col span={24}>
           <Row type="flex" align="top" style={{ paddingBottom: 23}}>
             <MemberGroup

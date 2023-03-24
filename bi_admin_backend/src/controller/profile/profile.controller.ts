@@ -82,11 +82,24 @@ export async function findAllProfileHandler(req: Request, res: Response) {
 }
 
 export async function deleteProfileHandler(req: Request<DeleteProfileInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
-        
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
     }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
+    }
+    
 
     const profile_Id = req.params._id;
     const profile = await findProfile({ profile_Id })

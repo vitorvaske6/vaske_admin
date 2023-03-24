@@ -3,28 +3,47 @@ import { CreateCompanyDepartmentInput, UpdateCompanyDepartmentInput, GetCompanyD
 import { createCompanyDepartment, deleteCompanyDepartment, findAllCompanyDepartment, findAndUpdateCompanyDepartment, findCompanyDepartment } from "../../service/company/companyDepartment.service";
 
 export async function createCompanyDepartmentHandler(req: Request<{}, {}, CreateCompanyDepartmentInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const body = req.body;
-    
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um departamento de empresa");
-    }
-    
-    const companyDepartment = await createCompanyDepartment({ ...body, createdBy: user_Id  });
+    const companyDepartment = await createCompanyDepartment({ ...body, createdBy: userInfo._id  });
 
     return res.send(companyDepartment);
 }
 
 export async function updateCompanyDepartmentHandler(req: Request<UpdateCompanyDepartmentInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const companyDepartment_Id = req.params._id;
@@ -63,10 +82,22 @@ export async function findAllCompanyDepartmentHandler(req: Request, res: Respons
 }
 
 export async function deleteCompanyDepartmentHandler(req: Request<DeleteCompanyDepartmentInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const companyDepartment_Id = req.params._id;

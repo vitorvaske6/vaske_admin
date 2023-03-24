@@ -234,7 +234,7 @@ const Companies = () => {
   const filteredData = companiesData.filter(item => `${item.cnpjCpf} ${item.fantasyName} ${item.corporateName}` && `${item.cnpjCpf} ${item.fantasyName} ${item.corporateName}`.toLowerCase().includes(filterText.toLowerCase()))
 
   return (
-    <div className='m-2 md:m-2 p-2 md:p-2 h-[80vh]'>
+    <div className='m-2 md:m-2 p-2 md:p-2 min-h-[90vh]'>
       {/* {showCrud && (<CompaniesCRUD showModal={showCrud} closeModal={setShowCrud} data={crudData} />)} */}
       {showInfo && (<CompanyInfo showModal={showInfo} closeModal={setShowInfo} data={infoData}  detailedColumns={detailedColumns} isEditMode={showInfoEditMode}/>)}
       <Header category={'Cadastros'} title={'Funcionários'} />

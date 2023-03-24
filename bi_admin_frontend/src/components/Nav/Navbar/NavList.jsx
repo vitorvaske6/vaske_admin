@@ -49,6 +49,8 @@ const NavList = (props) => {
     });
   }
 
+  console.log("props.item.groups", props.item)
+
   return (
 
     <div className={`absolute z-10 divide-gray-100 nav-item  top-[60px] bg-white dark:bg-[#42464D] p-2 rounded-lg w-80 border-1 border-t-8 `} style={{borderTopColor: currentColor}}>

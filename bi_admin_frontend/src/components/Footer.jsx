@@ -9,7 +9,7 @@ const Footer = () => {
     <>
       {isLoggedIn ?
       <>
-        <div className="bg-white px-6 py-4 dark:bg-gray-900 bottom-0 block w-full">
+        <div className=" bg-gray-100 dark:bg-main-dark-bg px-6 py-4 bottom-0 absolute w-full">
           <hr className=" border-gray-200 sm:mx-auto dark:border-gray-700 lg:mb-2" />
 
           {/* <div className="md:flex md:justify-between">

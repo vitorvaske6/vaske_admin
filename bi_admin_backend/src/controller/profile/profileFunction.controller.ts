@@ -3,28 +3,47 @@ import { CreateProfileFunctionInput, UpdateProfileFunctionInput, GetProfileFunct
 import { createProfileFunction, deleteProfileFunction, findAndUpdateProfileFunction, findProfileFunction, findAllProfileFunction } from "../../service/profile/profileFunction.service";
 
 export async function createProfileFunctionHandler(req: Request<{}, {}, CreateProfileFunctionInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const body = req.body;
-    
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar uma função de perfil");
-    }
-
-    const profileFunction = await createProfileFunction({ ...body, createdBy: user_Id  });
+    const profileFunction = await createProfileFunction({ ...body, createdBy: userInfo._id  });
 
     return res.send(profileFunction);
 }
 
 export async function updateProfileFunctionHandler(req: Request<UpdateProfileFunctionInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const profileFunction_Id = req.params._id;
@@ -63,12 +82,24 @@ export async function findAllProfileFunctionHandler(req: Request, res: Response)
 }
 
 export async function deleteProfileFunctionHandler(req: Request<DeleteProfileFunctionInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
-        
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
-    }
+if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
 
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
+    }
+    
     const profileFunction_Id = req.params._id;
     const profileFunction = await findProfileFunction({ profileFunction_Id })
 

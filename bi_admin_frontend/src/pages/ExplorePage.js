@@ -9,6 +9,7 @@ import { useCubeQuery } from "@cubejs-client/react";
 import PageHeader from "../components/PageHeader.js";
 import ExploreTitle from "../components/ExploreTitle.js";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Header } from "../components";
 
 const ExplorePage = ({ history, location }) => {
   const { currentColor } = useStateContext()
@@ -46,7 +47,7 @@ const ExplorePage = ({ history, location }) => {
   const isDisabled = finalVizState.query === undefined || finalVizState.query === {} || ((finalVizState.query.measures === undefined || finalVizState.query.measures.length === 0) && (finalVizState.query.dimensions === undefined || finalVizState.query.dimensions.length === 0) && (finalVizState.query.timeDimensions === undefined || finalVizState.query.timeDimensions.length === 0)) ? true : false
   
   return (
-    <div>
+    <div className="p-2 m-2 min-h-[90vh]">
       <TitleModal
         history={history}
         itemId={itemId}
@@ -57,14 +58,14 @@ const ExplorePage = ({ history, location }) => {
         setTitle={setTitle}
         finalTitle={finalTitle}
       />
-      <PageHeader
-        title={<ExploreTitle itemId={itemId} />}
+      <Header
+        itemTitle={<ExploreTitle itemId={itemId} />}
+        title={itemId ? "Editar Gráfico" : "Novo Gráfico"}
+        category={'Custom'}
+        hasButton={true}
         button={
           <Button
-            key="button"
-            type="primary"
             loading={addingToDashboard}
-            style={{background: currentColor}}
             disabled={isDisabled}
             onClick={() => setTitleModalVisible(true)}
           >

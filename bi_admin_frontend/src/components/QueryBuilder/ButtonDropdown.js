@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { Button, Dropdown } from 'antd';
 
@@ -6,6 +6,7 @@ import PlusIcon from './PlusIcon';
 
 import styled from 'styled-components';
 import { useStateContext } from '../../contexts/ContextProvider';
+import TextInput from '../TextInput';
 
 const StyledButton = styled(Button)`
 font-size: 14px;
@@ -64,9 +65,11 @@ border: none;
 padding: 0;
 `
 
+
+
 const ButtonDropdown = ({ overlay, type, ...buttonProps }) => {
   const {currentColor} = useStateContext()
- 
+
   let component;
   if (type === 'icon') {
     component = (<PlusIcon {...buttonProps} />);
@@ -79,48 +82,6 @@ const ButtonDropdown = ({ overlay, type, ...buttonProps }) => {
   } else {
     component =  <NewButton currentColor={currentColor} {...buttonProps} />;
   }
-
-  // const items = [{
-  //   label: <Link to={`/explore?itemId=${itemId}`}>Edit</Link>,
-  //   key: '1',
-  // },
-  // {
-  //   label: 'Excluir',
-  //   key: '2',
-  // }];
-
-  // menu={{items, onClick}}
-
-//   <Dropdown
-//   menu={{items, onClick}}
-//   placement="bottomLeft"
-//   trigger={["click"]}
-// >
-//   <p onClick={(e) => e.preventDefault()}>
-//   <Space>
-//   <ChartIcon type="menu"/>
-//   </Space>
-//   </p>
-// </Dropdown>
-
-// const onClick = ({ key }) => {
-//   if(key == 2){
-//     Modal.confirm({
-//       title: "Tem certeza que deseja excluir este item?",
-//       okText: "Sim",
-//       okType: "danger",
-//       cancelText: "Não",
-
-//       onOk() {
-//         removeDashboardItem({
-//           variables: {
-//             id: itemId
-//           }
-//         });
-//       }
-//     })
-//   }
-// };
 
   return (
     <Dropdown overlay={overlay} placement="bottomLeft" trigger={['click']}>

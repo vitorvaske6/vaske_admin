@@ -12,8 +12,8 @@ const ButtonsCol = styled(Col)`
 `
 
 const PageHeader = ({ title, button, noBorder }) => (
-  <StyledRow>
-    <Col span={12}>
+  <StyledRow className="dark:bg-main-dark-bg ">
+    <Col span={12} className="dark:text-gray-200 text-gray-400">
       {title}
     </Col>
     <ButtonsCol span={12}>

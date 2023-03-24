@@ -6,8 +6,8 @@ import { ContextProvider } from './contexts/ContextProvider';
 import env from 'react-dotenv';
 
 ReactDOM.render(
-      <ContextProvider >
-        <App />
-      </ContextProvider>,
+  <ContextProvider >
+      <App />
+  </ContextProvider>,
   document.getElementById('root'),
 );

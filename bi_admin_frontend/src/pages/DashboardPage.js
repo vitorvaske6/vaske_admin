@@ -8,6 +8,7 @@ import Dashboard from "../components/Dashboard";
 import DashboardItem from "../components/DashboardItem";
 import PageHeader from "../components/PageHeader";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Header } from "../components";
 const deserializeItem = i => ({
   ...i,
   layout: JSON.parse(i.layout) || {},
@@ -66,14 +67,18 @@ const DashboardPage = () => {
   );
 
   return !data || data.dashboardItems.length ? (
-    <div>
-      <PageHeader
-        title={<Typography.Title level={4}>Dashboard</Typography.Title>}
-        button={<Link to="/explore">
-          <Button type="primary" style={{background: currentColor}}>
-            Adicionar Gráfico
-          </Button>
-        </Link>}
+    <div className="p-2 m-2">
+      <Header
+        title={'Dashboard'}
+        category={'Custom'}
+        button={
+          <Link to="/explore">
+            <Button>
+              Adicionar Gráfico
+            </Button>
+          </Link>
+        }
+        hasButton={true}
       />
       <Dashboard dashboardItems={data && data.dashboardItems}>
         {data && data.dashboardItems.map(deserializeItem).map(dashboardItem)}

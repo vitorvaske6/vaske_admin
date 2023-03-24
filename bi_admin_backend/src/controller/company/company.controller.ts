@@ -3,19 +3,26 @@ import { CreateCompanyInput, UpdateCompanyInput, GetCompanyInput, DeleteCompanyI
 import { createCompany, deleteCompany, findAllCompany, findAndUpdateCompany, findCompany } from "../../service/company/company.service";
 
 export async function createCompanyHandler(req: Request<{}, {}, CreateCompanyInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const body = req.body;
-
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar uma empresa");
-    }
-
-    const company = await createCompany({ ...body, createdBy: user_Id });
+    const company = await createCompany({ ...body, createdBy: userInfo._id });
 
     return res.send(company);
 }
@@ -76,10 +83,22 @@ export async function findAllCompanyHandler(req: Request, res: Response) {
 }
 
 export async function deleteCompanyHandler(req: Request<DeleteCompanyInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const company_Id = req.params._id;

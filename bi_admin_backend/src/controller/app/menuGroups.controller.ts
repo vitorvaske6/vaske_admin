@@ -5,28 +5,47 @@ import { findReport } from "../../service/report/report.service";
 import ObjectId from 'mongoose'
 
 export async function createMenuGroupsHandler(req: Request<{}, {}, CreateMenuGroupsInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const body = req.body;
-
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de relatório");
-    }
-
-    const menuGroups = await createMenuGroups({ ...body, createdBy: user_Id });
+    const menuGroups = await createMenuGroups({ ...body, createdBy: userInfo._id });
 
     return res.send(menuGroups);
 }
 
 export async function updateMenuGroupsHandler(req: Request<UpdateMenuGroupsInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const menuGroups_Id = req.params._id;
@@ -65,10 +84,22 @@ export async function findAllMenuGroupsHandler(req: Request, res: Response) {
 }
 
 export async function deleteMenuGroupsHandler(req: Request<DeleteMenuGroupsInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const menuGroups_Id = req.params._id;

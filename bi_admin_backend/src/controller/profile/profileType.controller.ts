@@ -3,23 +3,49 @@ import { CreateProfileTypeInput, UpdateProfileTypeInput, GetProfileTypeInput, De
 import { createProfileType, deleteProfileType, findAndUpdateProfileType, findProfileType, findAllProfileType } from "../../service/profile/profileType.service";
 
 export async function createProfileTypeHandler(req: Request<{}, {}, CreateProfileTypeInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+
     const body = req.body;
-    
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um tipo de perfil");
+
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
-    const profileType = await createProfileType({ ...body, createdBy: user_Id });
+    const profileType = await createProfileType({ ...body, createdBy: userInfo._id });
 
     return res.send(profileType);
 }
 
 export async function updateProfileTypeHandler(req: Request<UpdateProfileTypeInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const profileGroup_Id = req.params._id;
@@ -62,12 +88,24 @@ export async function findAllProfileTypeHandler(req: Request, res: Response) {
 }
 
 export async function deleteProfileTypeHandler(req: Request<DeleteProfileTypeInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
-        
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um tipo de perfil");
-    }
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
 
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
+    }
+    
     const profileGroup_Id = req.params._id;
     const profileType = await findProfileType({ profileGroup_Id })
 

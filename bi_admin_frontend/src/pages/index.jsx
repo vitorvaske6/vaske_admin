@@ -25,3 +25,5 @@ export { default as Companies } from './Companies';
 export { default as NoAccess } from './NoAccess';
 export { default as ExplorePage } from './ExplorePage';
 export { default as DashboardPage } from './DashboardPage';
+export { default as Menus } from './Menus';
+export { default as MenuGroups } from './MenuGroups';

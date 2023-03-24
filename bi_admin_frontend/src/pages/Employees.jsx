@@ -249,7 +249,7 @@ const Employees = () => {
   const filteredData = employeesData.filter(item => `${item.name} ${item.surname}` && `${item.name} ${item.surname}`.toLowerCase().includes(filterText.toLowerCase()))
 
   return (
-    <div className='m-2 md:m-2 p-2 md:p-2 h-[80vh]'>
+    <div className='m-2 md:m-2 p-2 md:p-2 min-h-[90vh]'>
       {showInfo && (<EmployeeInfo showModal={showInfo} closeModal={setShowInfo} data={infoData}  detailedColumns={detailedColumns} isEditMode={showInfoEditMode}/>)}
 
       <Header category={'Cadastros'} title={'Funcionários'} />

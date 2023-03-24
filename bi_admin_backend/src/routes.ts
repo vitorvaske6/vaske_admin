@@ -66,7 +66,7 @@ import { createPageSchema, deletePageSchema, findPageSchema, findAllPageSchema, 
 
 // Power BI
 import { getEmbeddedInfoHandler } from './controller/powerbEmbedded.controller';
-import { getAppInfoForMasterHandler, getAppInfoForUserHandler } from './controller/app/app.controller';
+import { getAppInfoForMasterHandler, getAppInfoForUserHandler, getMenusInfoHandler } from './controller/app/app.controller';
 
 // C4M
 import { getC4mAuthHandler } from './controller/integrations/c4m.controller';
@@ -104,6 +104,7 @@ function routes(app: Express) {
     // App
     app.get('/api/app', getAppInfoForMasterHandler);
     app.get('/api/appUser', getAppInfoForUserHandler);
+    app.get('/api/appMenus', getMenusInfoHandler);
 
   /**
    * @openapi

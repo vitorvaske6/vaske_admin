@@ -4,28 +4,47 @@ import { createReportGroups, deleteReportGroups, findAndUpdateReportGroups, find
 import { findReport } from "../../service/report/report.service";
 
 export async function createReportGroupsHandler(req: Request<{}, {}, CreateReportGroupsInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
     }
-
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
+    }
+    
     const body = req.body;
-
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de relatório");
-    }
-
-    const reportGroups = await createReportGroups({ ...body, createdBy: user_Id });
+    const reportGroups = await createReportGroups({ ...body, createdBy: userInfo._id });
 
     return res.send(reportGroups);
 }
 
 export async function updateReportGroupsHandler(req: Request<UpdateReportGroupsInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const reportGroups_Id = req.params._id;
@@ -64,12 +83,24 @@ export async function findAllReportGroupsHandler(req: Request, res: Response) {
 }
 
 export async function deleteReportGroupsHandler(req: Request<DeleteReportGroupsInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
-        
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
-    }
+if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
 
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
+    }
+    
     const reportGroups_Id = req.params._id;
     const reportGroups = await findReportGroups({ reportGroups_Id })
 

@@ -104,6 +104,8 @@ export const ContextProvider = ({ children, env }) => {
     const [ddCompanyDepartmentsParams, setDdCompanyDepartmentsParams] = useState();
     const [ddProfileFunctionsParams, setDdProfileFunctionsParams] = useState();
     const [ddProfileGroupsParams, setDdProfileGroupsParams] = useState();
+    const [ddMenuGroupsParams, setDdMenuGroupsParams] = useState();
+    const [ddPagesParams, setDdPagesParams] = useState();
     const ServerEndpoint = process.env.REACT_APP_SERVER_ENDPOINT
 
     useEffect(() => {
@@ -150,6 +152,8 @@ export const ContextProvider = ({ children, env }) => {
         setDdCompanyDepartmentsParams();
         setDdProfileFunctionsParams();
         setDdProfileGroupsParams();
+        setDdMenuGroupsParams();
+        setDdPagesParams();
     }
 
     const handleAppData = async () => {
@@ -195,6 +199,8 @@ export const ContextProvider = ({ children, env }) => {
         let arrDdCompanyGroups = []
         let arrDdCompanyTypes = []
         let arrDdCompanyDepartments = []
+        let arrDdMenuGroups = []
+        let arrDdPages = []
 
         appData.profiles.profiles.map((profile, index) => {
             let current = {
@@ -273,6 +279,28 @@ export const ContextProvider = ({ children, env }) => {
             arrDdCompanyDepartments.push(current)
         })
         setDdCompanyDepartmentsParams(arrDdCompanyDepartments)
+
+        appData.navigation.menuGroupsInfo.map((_group, index) => {
+            let current = {
+                _id: _group._id,
+                value: _group._id,
+                groupTitle: `${_group.groupTitle}`,
+                selected: false,
+            }
+            arrDdMenuGroups.push(current)
+        })
+        setDdMenuGroupsParams(arrDdMenuGroups)
+
+        appData.navigation.pagesInfo.map((_page, index) => {
+            let current = {
+                _id: _page._id,
+                value: _page._id,
+                name: `${_page.name}`,
+                selected: false,
+            }
+            arrDdPages.push(current)
+        })
+        setDdPagesParams(arrDdPages)
         
         //console.log("arrDdProfiles, arrDdProfileTypes, arrDdProfileFunctions", arrDdProfiles, arrDdProfileTypes, arrDdProfileFunctions)
 
@@ -525,7 +553,7 @@ export const ContextProvider = ({ children, env }) => {
                 ServerEndpoint, appData, setAppData, navData, clearStates, verifyPermissions, normalizeObjectToId,
                 userReports,
                 handleProfileDetailsObject, handleUserDetailsObject, handleCompanyDetailsObject,
-                ddProfileFunctionsParams, ddProfilesParams, ddProfileTypesParams, ddCompanyTypesParams, ddCompanyGroupsParams, ddCompanyDepartmentsParams, ddProfileGroupsParams,
+                ddProfileFunctionsParams, ddProfilesParams, ddProfileTypesParams, ddCompanyTypesParams, ddCompanyGroupsParams, ddCompanyDepartmentsParams, ddProfileGroupsParams, ddMenuGroupsParams, ddPagesParams,
                 employeesLoaded, setEmployeesLoaded,
                 employeesData, setEmployeesData, reportsData, setReportsData, companiesData, setCompaniesData,
                 handleUserLoginInfo, userLoginInfo, profileInfo, profileCompanyInfo,

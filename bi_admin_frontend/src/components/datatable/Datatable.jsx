@@ -32,7 +32,7 @@ const Datatable = (props) => {
 
   const DetailedTables = (data) => {
     const { currentMode } = useStateContext();
-    //console.log("props DetailedTables", data, data[`${props.detailedColumns[1].data}`])//, data[`${props.detailedColumns[1].data}`].map(a => a.name))//, props)
+
     return (
       <div className='flex p-4 border-gray-400 gap-2 bg-slate-100 dark:bg-main-dark-bg'>
         {props.detailedColumns.map((item, index) => (

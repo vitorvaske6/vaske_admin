@@ -76,6 +76,28 @@ export async function getAppInfoForMasterHandler(
 
 }
 
+export async function getMenusInfoHandler(
+    req: Request,
+    res: Response
+) {
+    if (!res.locals.user) {
+        return res.status(404).send("User not found")
+    }
+
+    const menusInfo = await findAllMenu({})
+    const pagesInfo = await findAllPage({})
+    const menuGroupsInfo = await findAllMenuGroups({})
+
+    const navInfo = {
+        menusInfo: menusInfo,
+        menuGroupsInfo: menuGroupsInfo,
+        pagesInfo: pagesInfo
+    }
+
+    return res.send( navInfo );
+
+}
+
 export async function getAppInfoForUserHandler(
     req: Request,
     res: Response

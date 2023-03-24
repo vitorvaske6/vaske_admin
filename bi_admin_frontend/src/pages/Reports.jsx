@@ -240,7 +240,7 @@ const Reports = () => {
   const filteredData = reportsData.filter(item => `${item.name} ${item.menuTitle}` && `${item.name} ${item.menuTitle}`.toLowerCase().includes(filterText.toLowerCase()))
 
   return (
-    <div className='m-2 md:m-2 p-2 md:p-2 h-[80vh]'>
+    <div className='m-2 md:m-2 p-2 md:p-2 min-h-[90vh]'>
       {showInfo && (<ReportInfo showModal={showInfo} closeModal={setShowInfo} data={infoData}  
       //detailedColumns={detailedColumns} 
       isEditMode={showInfoEditMode}/>)}

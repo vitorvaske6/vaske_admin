@@ -32,7 +32,7 @@ export const Navbar = () => {
     return (
         <>
             {isLoggedIn ?
-                <div className='flex relative'>
+                <div className='flex relative dark:bg-main-dark-bg'>
                     {!isNavmenu ? (
                         <>
                             <div className='mt-2'>

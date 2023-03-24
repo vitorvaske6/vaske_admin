@@ -3,28 +3,47 @@ import { CreateProfileGroupInput, UpdateProfileGroupInput, GetProfileGroupInput,
 import { createProfileGroup, deleteProfileGroup, findAndUpdateProfileGroup, findProfileGroup, findAllProfileGroup } from "../../service/profile/profileGroup.service";
 
 export async function createProfileGroupHandler(req: Request<{}, {}, CreateProfileGroupInput["body"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const body = req.body;
-    
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
-    }
-
-    const profileGroup = await createProfileGroup({ ...body, createdBy: user_Id  });
+    const profileGroup = await createProfileGroup({ ...body, createdBy: userInfo._id  });
 
     return res.send(profileGroup);
 }
 
 export async function updateProfileGroupHandler(req: Request<UpdateProfileGroupInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+    if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
 
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
+        
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const profileGroup_Id = req.params._id;
@@ -63,10 +82,22 @@ export async function findAllProfileGroupHandler(req: Request, res: Response) {
 }
 
 export async function deleteProfileGroupHandler(req: Request<DeleteProfileGroupInput["params"]>, res: Response) {
-    const user_Id = res.locals.user._doc._id;
+if(!res.locals.user) {
+        return res.status(404).send("User not found")
+    }  
+
+    let userInfo
+
+    if(res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user._doc
+    }
         
-    if(!user_Id){
-        return res.status(403).send("Necessário um usuário para criar um grupo de perfil");
+    if (!res.locals.user.hasOwnProperty('_doc')) {
+        userInfo = res.locals.user
+    }
+        
+    if(!userInfo){
+        return res.status(403).send("Necessário um usuário para criar uma empresa.");
     }
 
     const profileGroup_Id = req.params._id;
