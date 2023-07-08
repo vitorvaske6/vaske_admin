@@ -9,13 +9,12 @@ import { Navbar } from './Nav/Navbar/Navbar';
 const PrivateRoute = ({child, isReport, linkName, linkGroup, permissionRequired}) => {
     // Add your own authentication on the below line.
     const { isLoggedIn, verifyPermissions, selectedReport } = useStateContext();
-    
     if(!isLoggedIn){
         return <Navigate to="/login" />
     }
 
     if(isReport){
-        if(!verifyPermissions(isReport, selectedReport?.name, linkGroup) && permissionRequired){
+        if(!verifyPermissions(isReport, selectedReport?._id, linkGroup) && permissionRequired){
             return <Navigate to="/noAccess" />
         }
         else{
@@ -23,7 +22,7 @@ const PrivateRoute = ({child, isReport, linkName, linkGroup, permissionRequired}
         }
     }
     else{
-        if(!verifyPermissions(isReport, linkName, linkGroup) && permissionRequired){
+        if(!verifyPermissions(isReport, undefined, linkName) && permissionRequired){
             return <Navigate to="/noAccess" />
         }
         else{

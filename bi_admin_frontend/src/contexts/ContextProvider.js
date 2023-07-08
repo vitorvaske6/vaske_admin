@@ -107,7 +107,9 @@ export const ContextProvider = ({ children, env }) => {
     const [ddMenuGroupsParams, setDdMenuGroupsParams] = useState();
     const [ddPagesParams, setDdPagesParams] = useState();
     const ServerEndpoint = process.env.REACT_APP_SERVER_ENDPOINT
-
+    const [sidebarSize, setSidebarSize] = useState(240)
+    const [sidebarToggle, setSidebarToggle] = useState(true)
+  
     useEffect(() => {
 
         if (!appData) {
@@ -119,6 +121,7 @@ export const ContextProvider = ({ children, env }) => {
         }
         
     }, [cookies, isLoggedIn, appData])
+
 
     const clearStates = () => {
         setCookie({ CookiesSchema });
@@ -170,16 +173,16 @@ export const ContextProvider = ({ children, env }) => {
         }
     }
 
-    const verifyPermissions = (isReport, linkName, linkGroup) => {
+    const verifyPermissions = (isReport, linkId, linkPage) => {
         let res = []
         if (!isReport) {
             res = navData.pagesInfo.filter((item, index) => {
-                return linkName === item.name
+                return linkPage === item.page
             })
         }
         else {
             res = userReports.filter((item, index) => {
-                return linkName === item.name
+                return linkId === item._id
             })
         }
 
@@ -460,12 +463,13 @@ export const ContextProvider = ({ children, env }) => {
             item.groups.map((group, ind) =>{
                 if(item.title === 'Reports' && group?.links !== undefined){
                     group.links.map((link, ind) => {
+
                         let reportFilter = reportsDataApi.filter(function (reportInfo) {
                             return link === reportInfo._id
                         })[0];
 
                         if(reportFilter !== undefined){
-                            _reports.push({ ...reportFilter, page: "Reports" })
+                            _reports.push({ ...reportFilter, page: reportFilter.name })
                         }
                     })
 
@@ -558,6 +562,8 @@ export const ContextProvider = ({ children, env }) => {
                 employeesData, setEmployeesData, reportsData, setReportsData, companiesData, setCompaniesData,
                 handleUserLoginInfo, userLoginInfo, profileInfo, profileCompanyInfo,
                 setCookie, cookies,
+                sidebarSize, setSidebarSize,
+                sidebarToggle, setSidebarToggle,
                 isNavmenu, setIsNavmenu,
                 isSidemenu, setIsSidemenu,
                 isActiveSide, setIsActiveSide,

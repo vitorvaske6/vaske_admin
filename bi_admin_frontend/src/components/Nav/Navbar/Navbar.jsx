@@ -26,54 +26,21 @@ export const Navbar = () => {
         //console.log("click")
         setMouseOverTitle(title);
     }
-    //console.log(reports[mouseOver])
+    console.log(reports)
 
 
     return (
         <>
             {isLoggedIn ?
-                <div className='flex relative dark:bg-main-dark-bg'>
-                    {!isNavmenu ? (
-                        <>
-                            <div className='mt-2'>
-                                <Hamburger toggled={!isSidemenu} toggle={handleIsNavMenu} duration={0.8} color={currentColor} size={20}/>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className='p-1 '>
-                                <Link to="/" className="relative ">
-                                    <Logo />
-                                </Link>
-                            </div>
-                            <div className='relative border-r-1 my-2 ' />
-                            <div className="flex-1 block relative mt-2 w-24">
-                                <div className='flex'>
-                                    <div className='relative'>
-                                        {navData.menusInfo?.map((item, index) => (
-                                            <div key={`${item.title}-${index}`} className='inline-flex'>
-                                                <NavMenu
-                                                    title={item.title}
-                                                    color={currentColor}
-                                                    customFunc={() => [handleMouseOver(index), handleIsMouseOver(true), handleClick('navMenu'), handleMouseOverTitle(`${item.title}-${index}`)]}
-                                                    report={reports[mouseOver]} />
-                                                {isClicked.navMenu && isMouseOver !== null && mouseOver !== null && mouseOverTitle === `${item.title}-${index}` && (<NavList report={reports[mouseOver]} item={navData.menusInfo[mouseOver]} groupTitle={item.title}/>)}
-                                            </div>
-                                        ))}
-
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                <div className='flex relative dark:bg-main-dark-bg bg-main-bg h-16 w-full'>
                     <UserNav />
                     {isClicked.cart && (<Cart />)}
                     {isClicked.chat && (<Chat />)}
                     {isClicked.notification && (<Notification />)}
                     {isClicked.userProfile && (<UserProfile />)}
 
-                    {/* {isMouseOver != null && mouseOver != null && (<NavListV2 report={reports[mouseOver]} />)} */}
-                </div> :
+                    {isMouseOver != null && mouseOver != null && (<NavListV2 report={reports[mouseOver]} />)}
+                </div> :    
                 <></>
             }
         </>

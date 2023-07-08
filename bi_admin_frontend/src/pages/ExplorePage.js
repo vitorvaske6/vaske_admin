@@ -60,7 +60,7 @@ const ExplorePage = ({ history, location }) => {
       />
       <Header
         itemTitle={<ExploreTitle itemId={itemId} />}
-        title={itemId ? "Editar Gráfico" : "Novo Gráfico"}
+        title={itemId ? "Edit Chart" : "New Chart"}
         category={'Custom'}
         hasButton={true}
         button={

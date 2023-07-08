@@ -88,9 +88,9 @@ const Login = () => {
               <div className='block border-1 mt-4 w-[50%] h-0' />
             </div>
 
-            <div className='sm:mx-0 md:mx-16 mt-4 grid grid-cols-2 place-items-center'>
+            <div className='sm:mx-0 md:mx-16 mt-4 grid grid-cols-1 place-items-center'>
               <SiGoogle size={35} className="cursor-pointer" onClick={handleGoogleLogin} />
-              <SiMicrosoftoutlook size={35} className=" cursor-pointer" />
+              {/* <SiMicrosoftoutlook size={35} className=" cursor-pointer" /> */}
             </div>
 
             <p className="pr-1 sm:text-[12px] md:text-[14px] mt-4 grid place-items-center grid-cols-1 grid-rows-1">

@@ -217,7 +217,7 @@ const TypeToChartComponent = {
           // sortDirections: ['ascend','descend'],
         }))}
         dataSource={resultSet.tablePivot()}
-        scroll={{ x: '100vw', y: '400px' }}
+        scroll={{ x: '100%', y: '200px' }}
       />
     )
   },

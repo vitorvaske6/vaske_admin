@@ -813,19 +813,19 @@ const ReportsEmbedded = () => {
                 </div> */}
                 <div className={simpleViewCss} onClick={() => simpleView({lineType: 'fullWidth', column: 2, slicersColumn: 6})}>
                     <button className='flex ml-2 w-auto'>
-                        <BsFillGrid3X3GapFill className='mt-1 mr-2' />Visualização Simples</button>
+                        <BsFillGrid3X3GapFill className='mt-1 mr-2' />Grid View</button>
                 </div>
                 <div className={dashboardViewCss} onClick={reloadReport}>
                     <button className='flex ml-2'>
-                        <BsFillGrid1X2Fill className='mt-1 mr-2' />Visualização de Dashboard</button>
+                        <BsFillGrid1X2Fill className='mt-1 mr-2' />Dashboard View</button>
                 </div>
                 <div className={`flex w-45 cursor-pointer p-2 rounded-s hover:bg-opacity-5 hover:bg-gray-400`} onClick={switchMode}>
                     <button className='flex ml-2'>
-                        <FaPencilAlt className='mt-1 mr-2' />Modo Livre</button>
+                        <FaPencilAlt className='mt-1 mr-2' />Free Mode</button>
                 </div>
                 <div className={`flex w-45 cursor-pointer p-2 rounded-s hover:bg-opacity-5 hover:bg-gray-400`} onClick={openFiltersTab}>
                     <button className='flex ml-2'>
-                        <AiOutlineFilter className='mt-1 mr-2' />Exibir Filtros <span className='mt-1 ml-1'>{showReportFilters ? (<FiChevronUp />) : (<FiChevronDown />)}</span> </button>
+                        <AiOutlineFilter className='mt-1 mr-2' />Show Filters <span className='mt-1 ml-1'>{showReportFilters ? (<FiChevronUp />) : (<FiChevronDown />)}</span> </button>
                 </div>
                 {/* <button className='flex ml-2' onClick={pageFilters}><BsFillGrid1X2Fill className='mt-1 mr-2' />View Filters</button> */}
                 {/* <div className={dashboardViewCss} onClick={simpleView}>

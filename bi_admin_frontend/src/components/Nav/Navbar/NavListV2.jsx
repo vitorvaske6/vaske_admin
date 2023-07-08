@@ -60,7 +60,7 @@ const NavListV2 = (props) => {
                 <ul className={`absolute z-10 divide-gray-100 nav-item  top-[50px] bg-white dark:bg-[#42464D] p-2 rounded-lg w-80 border-1 `} onLoad={handleIsOpen}>
                     <li className="flex justify-between items-center py-2">
                         <span className="flex gap-4">
-                            <p className="font-semibold text-lg px-4 dark:text-gray-200">{props.report.title}</p>
+                            <p className="font-semibold text-lg px-4 dark:text-gray-200">{props?.report.title}</p>
                             <button type="button" className="text-white text-xs rounded p-1  bg-orange-theme "></button>
                         </span>
                     </li>

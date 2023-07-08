@@ -38,7 +38,7 @@ const CollapseListV2 = (props) => {
         <>
             <div className="grid gap-1 grid-cols-2 grid-rows-1" {...getToggleProps()}>
                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase" >
-                    {props.item.groupTitle}
+                    {props.item.groupTitle}-
                 </p>
                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase" >
                     {isExpanded ? (<FiChevronUp />) : (<FiChevronDown />)}

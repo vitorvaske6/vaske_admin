@@ -34,7 +34,7 @@ const Datatable = (props) => {
     const { currentMode } = useStateContext();
 
     return (
-      <div className='flex p-4 border-gray-400 gap-2 bg-slate-100 dark:bg-main-dark-bg'>
+      <div className='flex p-4 border-gray-400 gap-2 bg-slate-100 dark:bg-main-dark-bg max-w-[768px]'>
         {props.detailedColumns.map((item, index) => (
           <div className='relative w-full'>
             {data[`${item.data}`].length === 0 ? (

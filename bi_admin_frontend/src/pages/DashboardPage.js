@@ -32,15 +32,7 @@ const DashboardPage = () => {
     return <Spin />;
   }
 
-  if (error) {
-    return (
-      <Alert
-        message="Error occured while loading your query"
-        description={error.toString()}
-        type="error"
-      />
-    );
-  }
+  console.log('dashboard page')
 
   const dashboardItem = item => (
     <div key={item.id} data-grid={defaultLayout(item)}>
@@ -54,19 +46,30 @@ const DashboardPage = () => {
     <div
       style={{
         textAlign: "center",
-        padding: 12
+        padding: 12,
+        height: 368
       }}
     >
       <h2>There are no charts on this dashboard</h2>
       <Link to="/explore">
-        <Button type="primary" size="large" icon="plus">
-          Adicionar Gráfico
-        </Button>
-      </Link>
+            <Button>
+              Adicionar Gráfico
+            </Button>
+          </Link>
     </div>
   );
 
-  return !data || data.dashboardItems.length ? (
+  // if (error) {
+  //   return (
+  //     <Alert
+  //       message="Error occured while loading your query"
+  //       description={error.toString()}
+  //       type="error"
+  //     />
+  //   );
+  // }
+
+  return !error ? (
     <div className="p-2 m-2">
       <Header
         title={'Dashboard'}

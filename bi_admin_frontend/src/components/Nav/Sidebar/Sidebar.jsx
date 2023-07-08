@@ -14,7 +14,7 @@ import NonCollapseList from '../Navbar/NonCollapseList';
 
 
 const Sidebar = () => {
-  const { currentColor, isSidemenu, setIsSidemenu, navData } = useStateContext();
+  const { sidebarToggle, sidebarSize, currentColor, isSidemenu, setIsSidemenu, navData } = useStateContext();
   const [q, setQ] = useState("");
   const [searchTerm] = useState(["name"]);
 
@@ -37,19 +37,15 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='w-[368px] h-screen pb-10 fixed z-50 overflow-auto  sidebar dark:bg-secondary-dark-bg bg-white '>
+      <div style={{ width: sidebarSize }} className={`transition-all duration-500 ease-in-out h-full z-10 fixed top-0 left-0 overflow-x-hidden  sidebar dark:bg-secondary-dark-bg bg-main-bg`}>
       <div className="justify-between items-center border-b-1 -border-wx-5 flex pb-2 ">
-        <span></span>
         <Link to="/" className="relative mt-2 w-52">
-          <Logo />
+          <Logo noText={sidebarToggle} />
         </Link>
-        <Hamburger toggled={!isSidemenu} toggle={handleIsSidemenu} duration={0} color={currentColor} size={20}/> 
       </div>
       {
-        navData.menusInfo.map((propsItem, index) => (
-          propsItem.groups.map((item, index) => (
-            <CollapseListV2 item={item} key={`${item.title}-${index}`} itemKey={`${item.title}-${index}`} groupTitle={item.groupTitle} customSearch={search} />
-          ))
+        navData?.menusInfo.map((propsItem, index) => (
+            <CollapseList item={propsItem} customSearch={search} />
         ))
       }
     </div>

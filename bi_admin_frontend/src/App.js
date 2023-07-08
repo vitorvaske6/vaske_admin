@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
 import { ApolloProvider } from "@apollo/client";
@@ -26,7 +26,13 @@ const cubejsApi = cubejs(token, {
 });
 
 const App = () => {
-  const { userReports, navData, profileCompanyInfo, profileInfo, userLoginInfo, appData, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, isNavmenu, currentColor, isSidemenu, themeSettings, setThemeSettings, handleMouseOut, setScreenSize, setIsNavmenu, screenSize, isLoggedin } = useStateContext();
+  const { sidebarSize, userReports, navData, profileCompanyInfo, profileInfo, userLoginInfo, appData, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, isNavmenu, currentColor, isSidemenu, themeSettings, setThemeSettings, handleMouseOut, setScreenSize, setIsNavmenu, screenSize, isLoggedin } = useStateContext();
+  const [resizeContent, setResizeContent] = useState('')
+
+
+  useEffect(() => {
+    setResizeContent(`ml-[${sidebarSize}px]`)
+  }, [sidebarSize]);
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem('colorMode');
@@ -75,33 +81,38 @@ const App = () => {
                 }}>
                 <div className="flex relative dark:bg-main-dark-bg w-full h-full">
                   {isLoggedIn && (
-                    <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-                      <TooltipComponent
-                        content="Settings"
-                        position="Top">
-                        <button
-                          type="button"
-                          onClick={() => setThemeSettings(true)}
-                          style={{ background: currentColor, borderRadius: '50%' }}
-                          className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray">
-                          <FiSettings />
-                        </button>
-                      </TooltipComponent>
-                    </div>
+                    <>
 
+                      <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
+                        <TooltipComponent
+                          content="Settings"
+                          position="Top">
+                          <button
+                            type="button"
+                            onClick={() => setThemeSettings(true)}
+                            style={{ background: currentColor, borderRadius: '50%' }}
+                            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray">
+                            <FiSettings />
+                          </button>
+                        </TooltipComponent>
+                      </div>
+                    </>
                   )}
 
-
-
-                  <div className='w-full h-full'>
+                  {isLoggedIn && <Sidebar />}
+                  
+                  <div style={{marginLeft: isLoggedIn ? sidebarSize : 0 }} className={`w-full h-full`}>
+                  <Navbar /> 
+                  {/* <Navbar /> 
                     {!isNavmenu && (
                       <>
-                        {!isSidemenu && (
+                        {!isSidemenu && ( 
                           <Sidebar />
-                        )}
+                         )}
                       </>
-                    )}
+                    )} 
                     <Navbar />
+                   */}
                     <div onMouseOver={() => handleMouseOut()}>
                       {themeSettings && (<ThemeSettings />)}
 
@@ -116,7 +127,7 @@ const App = () => {
                         <Route path="/explore" element={<PrivateRoute child={<ExplorePage />} isReport={false} linkName='Explorar' linkGroup='' permissionRequired={false} />} />
 
                         {/* reports */}
-                        <Route path="/reports/:groupname/:reportName" element={<PrivateRoute child={<ReportsEmbedded />} isReport={true} linkName='Reports' linkGroup='' permissionRequired={true} />} />
+                        <Route path="/relatorios/:groupname/:reportName" element={<PrivateRoute child={<ReportsEmbedded />} isReport={true} linkName='Reports' linkGroup='' permissionRequired={true} />} />
 
                         {/* pages  */}
                         <Route path="/orders" element={<PrivateRoute child={<Orders />} isReport={false} linkName='Orders' linkGroup='' permissionRequired={true} />} />
@@ -124,31 +135,31 @@ const App = () => {
 
 
                         {/* registration  */}
-                        <Route path="/companies" element={<PrivateRoute child={<Companies />} isReport={false} linkName='Empresas' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/employees" element={<PrivateRoute child={<Employees />} isReport={false} linkName='Funcionários' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/reports" element={<PrivateRoute child={<Reports />} isReport={false} linkName='Reports' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/menus" element={<PrivateRoute child={<Menus />} isReport={false} linkName='Menus' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/menuGroups" element={<PrivateRoute child={<MenuGroups />} isReport={false} linkName='Grupos de Menu' linkGroup='' permissionRequired={false} />} />
+                        <Route path="/cadastros/empresas" element={<PrivateRoute child={<Companies />} isReport={false} linkName="/cadastros/empresas" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/cadastros/funcionarios" element={<PrivateRoute child={<Employees />} isReport={false} linkName="/cadastros/funcionarios" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/cadastros/relatorios" element={<PrivateRoute child={<Reports />} isReport={false} linkName="/cadastros/relatorios" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/cadastros/menus" element={<PrivateRoute child={<Menus />} isReport={false} linkName='Menus' linkGroup="/cadastros/menus" permissionRequired={true} />} />
+                        <Route path="/cadastros/grupos-de-menus" element={<PrivateRoute child={<MenuGroups />} isReport={false} linkName="/cadastros/grupos-de-menus" linkGroup='' permissionRequired={false} />} />
 
 
                         {/* Integrations  */}
-                        <Route path="/integrations/c4m" element={<PrivateRoute child={<C4m />} isReport={false} linkName='C4M' linkGroup='' permissionRequired={true} />} />
+                        <Route path="/integracoes/c4m" element={<PrivateRoute child={<C4m />} isReport={false} linkName="/integracoes/c4m" linkGroup='' permissionRequired={true} />} />
 
                         {/* apps  */}
-                        <Route path="/apps/kanban" element={<PrivateRoute child={<Kanban />} isReport={false} linkName='Kanban' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/apps/editor" element={<PrivateRoute child={<Editor />} isReport={false} linkName='Editor' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/apps/calendar" element={<PrivateRoute child={<Calendar isReport={false} linkName='Calendario' linkGroup='' permissionRequired={true} />} />} />
-                        <Route path="/apps/color-picker" element={<PrivateRoute child={<ColorPicker isReport={false} linkName='Paleta de Cores' linkGroup='' permissionRequired={true} />} />} />
+                        <Route path="/aplicativos/kanban" element={<PrivateRoute child={<Kanban />} isReport={false} linkName="/aplicativos/kanban" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/aplicativos/editor" element={<PrivateRoute child={<Editor />} isReport={false} linkName="/aplicativos/editor" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/aplicativos/calendario" element={<PrivateRoute child={<Calendar isReport={false} linkName="/aplicativos/calendario"  linkGroup='' permissionRequired={true} />} />} />
+                        <Route path="/aplicativos/paleta-de-cores" element={<PrivateRoute child={<ColorPicker isReport={false} linkName="/aplicativos/paleta-de-cores" linkGroup='' permissionRequired={true} />} />} />
 
                         {/* charts  */}
-                        <Route path="/charts/line" element={<PrivateRoute child={<Line />} isReport={false} linkName='Linha' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/area" element={<PrivateRoute child={<Area />} isReport={false} linkName='Área' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/bar" element={<PrivateRoute child={<Bar />} isReport={false} linkName='Barra' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/pie" element={<PrivateRoute child={<Pie />} isReport={false} linkName='Pizza' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/financial" element={<PrivateRoute child={<Financial />} isReport={false} linkName='Finanças' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/color-mapping" element={<PrivateRoute child={<ColorMapping />} isReport={false} linkName='Mapeador de Cores' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/pyramid" element={<PrivateRoute child={<Pyramid />} isReport={false} linkName='Piramide' linkGroup='' permissionRequired={true} />} />
-                        <Route path="/charts/stacked" element={<PrivateRoute child={<Stacked />} isReport={false} linkName='Empilhado' linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/linha" element={<PrivateRoute child={<Line />} isReport={false} linkName="/graficos/linha" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/area" element={<PrivateRoute child={<Area />} isReport={false} linkName="/graficos/area" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/barras" element={<PrivateRoute child={<Bar />} isReport={false} linkName="/graficos/barras" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/pizza" element={<PrivateRoute child={<Pie />} isReport={false} linkName="/graficos/pizza" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/financas" element={<PrivateRoute child={<Financial />} isReport={false} linkName="/graficos/financas" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/mapeador-de-cores" element={<PrivateRoute child={<ColorMapping />} isReport={false} linkName="/graficos/mapeador-de-cores" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/piramide" element={<PrivateRoute child={<Pyramid />} isReport={false} linkName="/graficos/piramide" linkGroup='' permissionRequired={true} />} />
+                        <Route path="/graficos/barras-empilhado" element={<PrivateRoute child={<Stacked />} isReport={false} linkName="/graficos/barras-empilhado" linkGroup='' permissionRequired={true} />} />
 
                         {/* login  */}
                         <Route path="/login" element={<Login />} />
